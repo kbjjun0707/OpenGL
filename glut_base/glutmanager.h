@@ -1,8 +1,5 @@
 #pragma once
 
-#include <vector>
-
-
 namespace jun {
 		
 	void display();

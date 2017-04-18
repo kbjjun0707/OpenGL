@@ -7,9 +7,8 @@
 #include <gl\GLU.h>
 #include <gl\GL.h>
 
-#include <iostream>
+#include <vector>
 
-char m_WindowName[50];
 int m_WinId;
 int m_WinWidth, m_WinHeight, m_WinPosX, m_WinPosY;
 
@@ -45,15 +44,13 @@ void jun::idle() {
 }
 
 void jun::init(char * windowName, int posX, int posY, int x, int y) {
-	memset(m_WindowName, 0, sizeof(m_WindowName));
-	memcpy(m_WindowName, windowName, strlen(windowName));
 	m_WinPosX = posX; m_WinPosY = posY;
 	m_WinWidth = x, m_WinHeight = y;
 
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE);
 	glutInitWindowPosition(m_WinPosX, m_WinPosY);
 	glutInitWindowSize(m_WinWidth, m_WinHeight);
-	m_WinId = glutCreateWindow(m_WindowName);
+	m_WinId = glutCreateWindow(windowName);
 	glClearColor(0, 0, 0, 1);
 	glEnable(GL_DEPTH_TEST);
 
