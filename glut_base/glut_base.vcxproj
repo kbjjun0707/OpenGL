@@ -146,7 +146,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="camera_.cpp" />
+    <ClCompile Include="glutmanager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="transform_.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="camera_.h" />
+    <ClInclude Include="glutmanager.h" />
+    <ClInclude Include="transform_.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
