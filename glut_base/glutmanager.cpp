@@ -40,6 +40,7 @@ void jun::reshape(int x, int y) {
 
 void jun::idle() {
 
+
 	glutPostRedisplay();
 }
 
