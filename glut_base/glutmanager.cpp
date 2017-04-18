@@ -23,7 +23,7 @@ void jun::display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	float CamMat[16] = { 0 };
-	m_Cams[m_CamIdx].getMat(CamMat);
+	m_Cams[m_CamIdx].getCamMat(CamMat);
 	glMultMatrixf(CamMat);
 	
 	glutSolidTeapot(1);

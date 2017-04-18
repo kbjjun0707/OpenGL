@@ -12,7 +12,7 @@ jun::Camera::Camera(const float * p_Pos) : Transform(p_Pos) {
 jun::Camera::Camera(float x, float y, float z) : Transform (x, y, z) {
 }
 
-void jun::Camera::getMat(float * dst) {
+void jun::Camera::getCamMat(float * dst) {
 	float target[3] = { 0 }, up[3] = { 0 };
 	getTarget(target); getUp(up);
 
@@ -30,6 +30,13 @@ void jun::Camera::getTarget(float *dst) {
 	res = glm::rotate(m_Quaternion, res);
 	res += m_Pos;
 	
+	memcpy(dst, glm::value_ptr(res), sizeof(float) * 3);
+}
+
+void jun::Camera::getDir(float * dst) {
+	glm::fvec3 res(0, 0, -1);
+	res = glm::rotate(m_Quaternion, res);
+
 	memcpy(dst, glm::value_ptr(res), sizeof(float) * 3);
 }
 
