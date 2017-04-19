@@ -33,7 +33,7 @@ void jun::Camera::getTarget(float *dst) {
 	memcpy(dst, glm::value_ptr(res), sizeof(float) * 3);
 }
 
-void jun::Camera::getDir(float * dst) {
+void jun::Camera::getFront(float * dst) {
 	glm::fvec3 res(0, 0, -1);
 	res = glm::rotate(m_Quaternion, res);
 
