@@ -44,5 +44,8 @@
     <ClInclude Include="camera_.h">
       <Filter>헤더 파일\Util</Filter>
     </ClInclude>
+    <ClInclude Include="ray_.h">
+      <Filter>헤더 파일\Util</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

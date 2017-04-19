@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClInclude Include="camera_.h" />
     <ClInclude Include="glutmanager.h" />
+    <ClInclude Include="ray_.h" />
     <ClInclude Include="transform_.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
