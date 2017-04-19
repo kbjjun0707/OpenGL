@@ -21,7 +21,7 @@ namespace jun {
 		// point3
 		void getTarget(float *dst);
 		// vec3 (target - pos)
-		void getDir(float *dst);
+		void getFront(float *dst);
 		// vec3
 		void getUp(float *dst);
 	};
