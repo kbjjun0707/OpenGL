@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 
+#include <gl\glut.h>
 #include <gl\gl.h>
 #pragma comment(lib, "opengl32.lib")
 #include <gl\glu.h>
@@ -27,9 +28,6 @@ void OpenglWidgetClass::initializeGL() {
 
 	m_Cams.push_back(jun::Camera(0, 0, 10));
 	m_CamIdx = 0;
-	m_PickIdx = -1;
-	m_Objects.push_back(new jun::SphereObject(1));
-	m_Collis.push_back(new jun::SphereCollision(1.2));
 	memset(m_MouseDown, 0, sizeof(m_MouseDown));
 
 	startTimer(40);
@@ -55,17 +53,10 @@ void OpenglWidgetClass::paintGL() {
 
 	glPushMatrix(); {
 
-		for (int i = 0; i < m_Objects.size(); i++) {
-			if (i == m_PickIdx) {
-				glColor3f(0, 1, 0);
-			} else {
-				glColor3f(1, 0, 0);
-			}
-			m_Objects[i]->draw(jun::Object::DRAWMODE::SOLID);
-			m_Collis[i]->draw();
-		}
+		glutSolidTeapot(1);
 
 	}glPopMatrix();
+
 }
 
 void OpenglWidgetClass::timerEvent(QTimerEvent * e) {
@@ -82,50 +73,22 @@ void OpenglWidgetClass::mousePressEvent(QMouseEvent * e) {
 	case Qt::LeftButton:
 		m_MouseDown[0] = true;
 		m_PressPnt = e->pos();
-		m_CamRay = jun::Ray::calcRay(m_PressPnt.x(), m_PressPnt.y());
-		for (int i = 0; !find && i < m_Collis.size(); i++) {
-			if (m_Collis[i] == nullptr) continue;
-			switch (m_Collis[i]->type()) {
-			case jun::Collision_Base::TYPE::SPHERE:
-				if (jun::Collision_Base::detect(m_CamRay, *(jun::SphereCollision *)m_Collis[i])) {
-					m_PickIdx = i;
-				}
-				break;
-			case jun::Collision_Base::TYPE::QUAD:
-				break;
-			}
-		}
 		break;
 	default:
 		break;
 	}
-	qDebug() << m_CamRay.m_O[0] << " " << m_CamRay.m_O[1] << " " << m_CamRay.m_O[2] << endl;
 }
 
 void OpenglWidgetClass::mouseMoveEvent(QMouseEvent * e) {
-	if (m_MouseDown[0] && m_PickIdx >= 0) {
-		jun::Ray pre = m_CamRay;
-		m_CamRay = jun::Ray::calcRay(e->pos().x(), e->pos().y());
-
-		float objPos[3], camPos[3];
-		m_Objects[m_PickIdx]->getPos(objPos);
-		m_Cams[m_CamIdx].getPos(camPos);
-
-		float *m = jun::Ray::pickObjdMove(pre.m_O, m_CamRay.m_O, camPos, objPos);
-		float move[3] = { m[0], m[1], m[2] };
-
-		m_Objects[m_PickIdx]->translate(move);
-		m_Collis[m_PickIdx]->translate(move);
+	if (m_MouseDown[0]) {
+		
 	}
-
-
 }
 
 void OpenglWidgetClass::mouseReleaseEvent(QMouseEvent * e) {
 	switch (e->button()) {
 	case Qt::LeftButton:
 		m_MouseDown[0] = false;
-		m_PickIdx = -1;
 		break;
 	default:
 		break;

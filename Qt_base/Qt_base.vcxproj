@@ -85,7 +85,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera_.cpp" />
-    <ClCompile Include="collision_.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_openglwidget_.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -105,10 +104,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="object_.cpp" />
     <ClCompile Include="openglwidget_.cpp" />
     <ClCompile Include="qt_base.cpp" />
-    <ClCompile Include="ray_.cpp" />
     <ClCompile Include="transform_.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -137,10 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera_.h" />
-    <ClInclude Include="collision_.h" />
     <ClInclude Include="GeneratedFiles\ui_qt_base.h" />
-    <ClInclude Include="object_.h" />
-    <ClInclude Include="ray_.h" />
     <ClInclude Include="transform_.h" />
     <CustomBuild Include="openglwidget_.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

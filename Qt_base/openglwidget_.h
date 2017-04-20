@@ -7,9 +7,6 @@
 #include <QOpenGLFunctions>
 
 #include "camera_.h"
-#include "object_.h"
-#include "ray_.h"
-#include "collision_.h"
 
 #include <vector>
 
@@ -45,10 +42,6 @@ private:
 
 	int m_CamIdx;
 	std::vector<jun::Camera>			m_Cams;
-	jun::Ray							m_CamRay;
-	int m_PickIdx;
-	std::vector<jun::Collision_Base *>	m_Collis;
-	std::vector<jun::Object *>			m_Objects;
 	QPoint								m_PressPnt;
 	bool								m_MouseDown[3];
 

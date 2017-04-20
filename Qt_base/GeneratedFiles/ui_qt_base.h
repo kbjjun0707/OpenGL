@@ -28,7 +28,7 @@ public:
     {
         if (Qt_baseClass->objectName().isEmpty())
             Qt_baseClass->setObjectName(QStringLiteral("Qt_baseClass"));
-        Qt_baseClass->resize(727, 678);
+        Qt_baseClass->resize(640, 480);
         centralWidget = new OpenglWidgetClass(Qt_baseClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         Qt_baseClass->setCentralWidget(centralWidget);
