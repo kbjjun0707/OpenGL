@@ -39,6 +39,12 @@
     <Filter Include="Source Files\openGL">
       <UniqueIdentifier>{c7e0c9d4-32d1-4037-8f70-0a52e9d36da6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\openGL\Utils">
+      <UniqueIdentifier>{32b7efb5-f084-422b-942e-021b3903e24f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\openGL\Utils">
+      <UniqueIdentifier>{5fda2946-f829-415d-b5a9-12395f0c91ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -65,6 +71,21 @@
     <ClCompile Include="GeneratedFiles\Release\moc_openglwidget_.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="camera_.cpp">
+      <Filter>Source Files\openGL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="collision_.cpp">
+      <Filter>Source Files\openGL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="object_.cpp">
+      <Filter>Source Files\openGL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ray_.cpp">
+      <Filter>Source Files\openGL\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="transform_.cpp">
+      <Filter>Source Files\openGL\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qt_base.h">
@@ -83,6 +104,21 @@
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_qt_base.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera_.h">
+      <Filter>Header Files\openGL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="collision_.h">
+      <Filter>Header Files\openGL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="object_.h">
+      <Filter>Header Files\openGL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="ray_.h">
+      <Filter>Header Files\openGL\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="transform_.h">
+      <Filter>Header Files\openGL\Utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
