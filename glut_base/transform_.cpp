@@ -69,6 +69,5 @@ void jun::Transform::getQuaternion(float *dst) {
 }
 
 void jun::Transform::getPos(float *dst) {
-	memcpy(dst, glm::value_ptr(m_Quaternion), sizeof(float) * 4);
+	memcpy(dst, glm::value_ptr(m_Pos), sizeof(float) * 3);
 }
-
