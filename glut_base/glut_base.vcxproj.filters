@@ -33,6 +33,15 @@
     <ClCompile Include="camera_.cpp">
       <Filter>소스 파일\Util</Filter>
     </ClCompile>
+    <ClCompile Include="ray_.cpp">
+      <Filter>소스 파일\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="collision_.cpp">
+      <Filter>소스 파일\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="object_.cpp">
+      <Filter>소스 파일\Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glutmanager.h">
@@ -45,6 +54,12 @@
       <Filter>헤더 파일\Util</Filter>
     </ClInclude>
     <ClInclude Include="ray_.h">
+      <Filter>헤더 파일\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="collision_.h">
+      <Filter>헤더 파일\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="object_.h">
       <Filter>헤더 파일\Util</Filter>
     </ClInclude>
   </ItemGroup>

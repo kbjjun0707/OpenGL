@@ -147,13 +147,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="camera_.cpp" />
+    <ClCompile Include="collision_.cpp" />
     <ClCompile Include="glutmanager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="object_.cpp" />
+    <ClCompile Include="ray_.cpp" />
     <ClCompile Include="transform_.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="camera_.h" />
+    <ClInclude Include="collision_.h" />
     <ClInclude Include="glutmanager.h" />
+    <ClInclude Include="object_.h" />
     <ClInclude Include="ray_.h" />
     <ClInclude Include="transform_.h" />
   </ItemGroup>

@@ -8,12 +8,12 @@ namespace jun {
 	void reshape(int x, int y);
 
 	void onMouseClick(int bnt, int state, int x, int y);
+	void onMouseMotion(int x, int y);
 	void onKeyBoard(unsigned char key, int x, int y);
-	
+		
 	void idle();
 	void display();
-
-
+	
 	void run();
 	
 }
