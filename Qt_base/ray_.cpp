@@ -7,7 +7,7 @@
 
 #include <gl\GL.h>
 
-
+#include <qdebug.h>
 jun::Ray::Ray() {
 	memset(m_O, 0, sizeof(m_O));
 	memset(m_D, 0, sizeof(m_D));
@@ -75,16 +75,12 @@ jun::Ray jun::Ray::calcRay(const int x, const int y) {
 }
 
 float * jun::Ray::pickObjdMove(const float * p_PreO, const float * p_PosO, 
-	const float * p_CameraPos, const float * p_ObjPos, float *dst) {
+	const float * p_CameraPos, const float * p_ObjPos) {
 
 	glm::fvec3 K(p_CameraPos[0], p_CameraPos[1], p_CameraPos[2]);
 	glm::fvec3 C(p_ObjPos[0], p_ObjPos[1], p_ObjPos[2]);
 	glm::fvec3 preO(p_PreO[0], p_PreO[1], p_PreO[2]),
 		posO(p_PosO[0], p_PosO[1], p_PosO[2]);
-	if (preO == posO) {
-		float res[3] = { 0 };
-		return res;
-	}
 	glm::fvec3 move(posO - preO);
 	glm::fvec3 A(preO - C), B(posO - C);
 	glm::fvec3 a(preO - K), b(posO - K);
@@ -97,10 +93,9 @@ float * jun::Ray::pickObjdMove(const float * p_PreO, const float * p_PosO,
 		+ (A[0] * B[1] - B[0] * A[1])*(A[0] * B[1] - B[0] * A[1]));
 
 	float ratio = s2 / s1;
-
+	
 	move *= ratio;
-
-	memcpy(dst, glm::value_ptr(move), sizeof(float) * 3);
-
+	qDebug() << ratio << endl;
+	qDebug() << move[0] << " " << move[1] << " " << move[2] << endl;
 	return glm::value_ptr(move);
 }

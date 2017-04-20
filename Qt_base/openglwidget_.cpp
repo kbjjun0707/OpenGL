@@ -22,7 +22,6 @@ void OpenglWidgetClass::initializeGL() {
 	initializeOpenGLFunctions();
 	glClearColor(0, 0, 0, 1);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
 	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 	glEnable(GL_COLOR_MATERIAL);
 
@@ -30,7 +29,7 @@ void OpenglWidgetClass::initializeGL() {
 	m_CamIdx = 0;
 	m_PickIdx = -1;
 	m_Objects.push_back(new jun::SphereObject(1));
-	m_Collis.push_back(new jun::SphereCollision(1));
+	m_Collis.push_back(new jun::SphereCollision(1.2));
 	memset(m_MouseDown, 0, sizeof(m_MouseDown));
 
 	startTimer(40);
@@ -46,14 +45,13 @@ void OpenglWidgetClass::resizeGL(int w, int h) {
 }
 
 void OpenglWidgetClass::paintGL() {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	float CamMat[16] = { 0 };
 	m_Cams[m_CamIdx].getCamMat(CamMat);
-	glMultMatrixf(CamMat);	
+	glMultMatrixf(CamMat);
 
 	glPushMatrix(); {
 
@@ -64,6 +62,7 @@ void OpenglWidgetClass::paintGL() {
 				glColor3f(1, 0, 0);
 			}
 			m_Objects[i]->draw(jun::Object::DRAWMODE::SOLID);
+			m_Collis[i]->draw();
 		}
 
 	}glPopMatrix();
@@ -83,41 +82,40 @@ void OpenglWidgetClass::mousePressEvent(QMouseEvent * e) {
 	case Qt::LeftButton:
 		m_MouseDown[0] = true;
 		m_PressPnt = e->pos();
-		m_CamRay.calcRay(m_PressPnt.x(), m_PressPnt.y());
-		for (int i = 0; i < m_Collis.size(); i++) {
+		m_CamRay = jun::Ray::calcRay(m_PressPnt.x(), m_PressPnt.y());
+		for (int i = 0; !find && i < m_Collis.size(); i++) {
 			if (m_Collis[i] == nullptr) continue;
-			if (jun::Collision_Base::detect(m_CamRay, *(jun::SphereCollision *)m_Collis[i])) {
-				m_PickIdx = i;
+			switch (m_Collis[i]->type()) {
+			case jun::Collision_Base::TYPE::SPHERE:
+				if (jun::Collision_Base::detect(m_CamRay, *(jun::SphereCollision *)m_Collis[i])) {
+					m_PickIdx = i;
+				}
+				break;
+			case jun::Collision_Base::TYPE::QUAD:
+				break;
 			}
 		}
 		break;
 	default:
 		break;
 	}
-
+	qDebug() << m_CamRay.m_O[0] << " " << m_CamRay.m_O[1] << " " << m_CamRay.m_O[2] << endl;
 }
 
 void OpenglWidgetClass::mouseMoveEvent(QMouseEvent * e) {
 	if (m_MouseDown[0] && m_PickIdx >= 0) {
 		jun::Ray pre = m_CamRay;
-		m_CamRay.calcRay(e->x(), e->y());
+		m_CamRay = jun::Ray::calcRay(e->pos().x(), e->pos().y());
 
-		float CamPos[3] = { 0 };
-		float ObjPos[3] = { 0 };
+		float objPos[3], camPos[3];
+		m_Objects[m_PickIdx]->getPos(objPos);
+		m_Cams[m_CamIdx].getPos(camPos);
 
-		m_Cams[m_CamIdx].getPos(CamPos);
-		m_Objects[m_PickIdx]->getPos(ObjPos);
+		float *m = jun::Ray::pickObjdMove(pre.m_O, m_CamRay.m_O, camPos, objPos);
+		float move[3] = { m[0], m[1], m[2] };
 
-		qDebug() << "1 " << CamPos[0] << " " << CamPos[1] << " " << CamPos[2] << endl;
-		qDebug() << "2 " << ObjPos[0] << " " << ObjPos[1] << " " << ObjPos[2] << endl;
-
-		float d[3] = { 0 };
-		jun::Ray::pickObjdMove(pre.m_O, m_CamRay.m_O, 
-			CamPos, ObjPos, d);
-
-		qDebug() << "3 " << d[0] << " " << d[1] << " " << d[2] << endl;
-
-		m_Objects[m_PickIdx]->translate(d);
+		m_Objects[m_PickIdx]->translate(move);
+		m_Collis[m_PickIdx]->translate(move);
 	}
 
 

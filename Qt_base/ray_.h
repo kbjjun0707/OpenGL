@@ -18,7 +18,7 @@ namespace jun {
 				
 		static Ray calcRay(const int x, const int y);
 		static float *pickObjdMove(const float *p_PreO, const float *p_PosO, 
-			const float *p_CameraPos, const float *p_ObjPos, float *dst);
+			const float *p_CameraPos, const float *p_ObjPos);
 	};
 
 }
