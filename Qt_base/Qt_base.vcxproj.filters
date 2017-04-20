@@ -33,6 +33,12 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Header Files\openGL">
+      <UniqueIdentifier>{8e96c20b-2dbd-49c9-86ed-1ee00b2c4ef8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\openGL">
+      <UniqueIdentifier>{c7e0c9d4-32d1-4037-8f70-0a52e9d36da6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -50,6 +56,15 @@
     <ClCompile Include="GeneratedFiles\qrc_qt_base.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_openglwidget_.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="openglwidget_.cpp">
+      <Filter>Source Files\openGL</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_openglwidget_.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="qt_base.h">
@@ -60,6 +75,9 @@
     </CustomBuild>
     <CustomBuild Include="qt_base.qrc">
       <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="openglwidget_.h">
+      <Filter>Header Files\openGL</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

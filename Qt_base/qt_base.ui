@@ -1,29 +1,31 @@
-<UI version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>Qt_baseClass</class>
- <widget class="QMainWindow" name="Qt_baseClass" >
-  <property name="objectName" >
-   <string notr="true">Qt_baseClass</string>
-  </property>
-  <property name="geometry" >
+ <widget class="QMainWindow" name="Qt_baseClass">
+  <property name="geometry">
    <rect>
-	<x>0</x>
-	<y>0</y>
-	<width>600</width>
-	<height>400</height>
+    <x>0</x>
+    <y>0</y>
+    <width>727</width>
+    <height>678</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Qt_base</string>
   </property>
-  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />
+  <widget class="OpenglWidgetClass" name="centralWidget"/>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>OpenglWidgetClass</class>
+   <extends>QWidget</extends>
+   <header>openglwidget_.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
-   <include location="qt_base.qrc"/>
+  <include location="qt_base.qrc"/>
  </resources>
  <connections/>
-</UI>
+</ui>
