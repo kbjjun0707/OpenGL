@@ -108,13 +108,14 @@ void OpenglWidgetClass::mouseMoveEvent(QMouseEvent * e) {
 		m_Cams[m_CamIdx].getPos(CamPos);
 		m_Objects[m_PickIdx]->getPos(ObjPos);
 
-		qDebug() << CamPos[0] << " " << CamPos[1] << " " << CamPos[2] << endl;
-		qDebug() << ObjPos[0] << " " << ObjPos[1] << " " << ObjPos[2] << endl << endl;
+		qDebug() << "1 " << CamPos[0] << " " << CamPos[1] << " " << CamPos[2] << endl;
+		qDebug() << "2 " << ObjPos[0] << " " << ObjPos[1] << " " << ObjPos[2] << endl;
 
 		float d[3] = { 0 };
 		jun::Ray::pickObjdMove(pre.m_O, m_CamRay.m_O, 
 			CamPos, ObjPos, d);
 
+		qDebug() << "3 " << d[0] << " " << d[1] << " " << d[2] << endl;
 
 		m_Objects[m_PickIdx]->translate(d);
 	}

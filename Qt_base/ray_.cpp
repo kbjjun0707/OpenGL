@@ -81,6 +81,10 @@ float * jun::Ray::pickObjdMove(const float * p_PreO, const float * p_PosO,
 	glm::fvec3 C(p_ObjPos[0], p_ObjPos[1], p_ObjPos[2]);
 	glm::fvec3 preO(p_PreO[0], p_PreO[1], p_PreO[2]),
 		posO(p_PosO[0], p_PosO[1], p_PosO[2]);
+	if (preO == posO) {
+		float res[3] = { 0 };
+		return res;
+	}
 	glm::fvec3 move(posO - preO);
 	glm::fvec3 A(preO - C), B(posO - C);
 	glm::fvec3 a(preO - K), b(posO - K);
