@@ -16,8 +16,9 @@ namespace jun {
 		Ray(const glm::fvec3 &o, const glm::fvec3 &d);
 		Ray(const Ray &r);
 				
-		static Ray calcRay(const int x, const int y);
+		static Ray calcRay(const float camX, const float camY, const float camZ, const int x, const int y);
 		static float *pickObjdMove(const float *p_PreO, const float *p_PosO, const float *p_CameraPos, const float *p_ObjPos = nullptr);
+		static float *pickObjdMove(int p_PreX, int p_PreY, int p_PosX, int p_PosY, const float * p_CameraPos, const float *p_ObjPos = nullptr);
 	};
 
 }

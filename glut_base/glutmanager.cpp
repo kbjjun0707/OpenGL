@@ -20,6 +20,7 @@ int g_WinWidth, g_WinHeight, g_WinPosX, g_WinPosY;
 
 bool		g_MouseDown[3] = { 0 };
 int			g_PressX = 0, g_PressY = 0;
+int			g_PreX = 0, g_PreY = 0;
 jun::Ray	g_MouseRay;
 
 
@@ -83,12 +84,15 @@ void jun::reshape(int x, int y) {
 }
 
 void jun::onMouseClick(int bnt, int state, int x, int y) {
+	float CamPos[3] = { 0 };
 	switch (bnt) {
 	case GLUT_LEFT_BUTTON:
 		if (state == GLUT_DOWN) {
 			g_MouseDown[0] = true;
 			g_PressX = x; g_PressY = y;
-			g_MouseRay = jun::Ray::calcRay(x, y);
+			g_PreX = x; g_PreY = y;
+			g_Cams[0].getPos(CamPos);
+			g_MouseRay = jun::Ray::calcRay(CamPos[0], CamPos[1], CamPos[2], x, y);
 			bool find = false;
 			for (int i = 0; !find && i < g_Collis.size(); i++) {
 				if (g_Collis[i] == nullptr) continue;
@@ -116,15 +120,18 @@ void jun::onMouseClick(int bnt, int state, int x, int y) {
 
 void jun::onMouseMotion(int x, int y) {
 	if (g_MouseDown[0] && g_PickIdx >= 0) {
-		jun::Ray pre = g_MouseRay;
-		g_MouseRay = jun::Ray::calcRay(x, y);
+		float CamPos[3] = { 0 };
+		//jun::Ray pre = g_MouseRay;
+		g_Cams[0].getPos(CamPos);
+		g_MouseRay = jun::Ray::calcRay(CamPos[0], CamPos[1], CamPos[2], x, y);
 
 		float objPos[3], camPos[3];
 		g_Objects[g_PickIdx]->getPos(objPos);
 		g_Cams[g_CamIdx].getPos(camPos);
 
-		float *m = jun::Ray::pickObjdMove(pre.m_O, g_MouseRay.m_O, camPos, objPos);
+		float *m = jun::Ray::pickObjdMove(g_PreX, g_PreY, x, y, camPos, objPos);
 		float move[3] = { m[0], m[1], m[2] };
+		g_PreX = x; g_PreY = y;
 
 		g_Objects[g_PickIdx]->translate(move);
 		g_Collis[g_PickIdx]->translate(move);
