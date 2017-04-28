@@ -7,6 +7,7 @@
 #include <QOpenGLFunctions>
 
 #include "camera_.h"
+#include <glm\fwd.hpp>
 
 #include <vector>
 
@@ -45,6 +46,8 @@ private:
 	QPoint								m_PressPnt;
 	bool								m_MouseDown[3];
 
+	glm::mat4	m_ProjectionMat, m_LookAtMat, m_ModelMat;
+	glm::vec4	m_Viewport;
 
 	///////////////////////////FUNCT//////////////////////////
 

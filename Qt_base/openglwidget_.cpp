@@ -8,6 +8,10 @@
 #include <gl\glu.h>
 #pragma comment(lib, "glu32.lib")
 
+#include <glm\glm.hpp>
+#include <glm\gtc\matrix_transform.hpp>
+#include <glm\gtc\type_ptr.hpp>
+
 #include <qdebug.h>
 
 
@@ -30,6 +34,8 @@ void OpenglWidgetClass::initializeGL() {
 	m_CamIdx = 0;
 	memset(m_MouseDown, 0, sizeof(m_MouseDown));
 
+	m_ProjectionMat = glm::mat4(1.0);
+	
 	startTimer(40);
 }
 
@@ -38,21 +44,21 @@ void OpenglWidgetClass::resizeGL(int w, int h) {
 	glLoadIdentity();
 
 	glViewport(0, 0, w, h);
-	gluPerspective(45, (float)w / h, 0.1, 10000);
-
+	m_Viewport = { 0, 0, w, h };
+		
+	m_ProjectionMat = glm::perspective<float>(45, (float)w / h, 0.1, 10000);
+	
 }
 
 void OpenglWidgetClass::paintGL() {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	float CamMat[16] = { 0 };
-	m_Cams[m_CamIdx].getCamMat(CamMat);
-	glMultMatrixf(CamMat);
+	m_Cams[m_CamIdx].getCamMat(m_LookAtMat);
+	glMultMatrixf(glm::value_ptr(m_ProjectionMat*m_LookAtMat*m_ModelMat));
 
 	glPushMatrix(); {
-
 		glutSolidTeapot(1);
 
 	}glPopMatrix();

@@ -18,6 +18,7 @@ namespace jun {
 
 		// 4x4 matrix
 		void getCamMat(float *dst);
+		void getCamMat(glm::mat4 &dst);
 		// point3
 		void getTarget(float *dst);
 		// vec3 (target - pos)

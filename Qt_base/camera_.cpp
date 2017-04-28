@@ -28,6 +28,17 @@ void jun::Camera::getCamMat(float * dst) {
 	memcpy(dst, glm::value_ptr(resMat), sizeof(float) * 16);
 }
 
+void jun::Camera::getCamMat(glm::mat4 & dst) {
+	float target[3] = { 0 }, up[3] = { 0 };
+	getTarget(target); getUp(up);
+
+	dst = glm::lookAt(
+		m_Pos,
+		glm::make_vec3<float>(target),
+		glm::make_vec3<float>(up)
+	);
+}
+
 void jun::Camera::getTarget(float *dst) {
 	glm::fvec3 res(0, 0, -1);
 	res = glm::rotate(m_Quaternion, res);
