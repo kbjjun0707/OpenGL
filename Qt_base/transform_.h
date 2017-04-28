@@ -38,6 +38,7 @@ namespace jun {
 		void getQuaternion(float *dst);
 		// float *{x, y, z}
 		void getPos(float *dst);
+		void getPos(glm::fvec3 &pos);
 	};
 
 	typedef Transform Transf;

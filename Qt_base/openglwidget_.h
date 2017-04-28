@@ -7,6 +7,10 @@
 #include <QOpenGLFunctions>
 
 #include "camera_.h"
+#include "object_.h"
+#include "collision_.h"
+#include "ray_.h"
+
 #include <glm\fwd.hpp>
 
 #include <vector>
@@ -43,11 +47,19 @@ private:
 
 	int m_CamIdx;
 	std::vector<jun::Camera>			m_Cams;
+
+	std::vector<jun::Object *>			m_Objs;
+	std::vector<jun::Collision_Base *>	m_Collis;
+	std::vector<bool>					m_IsColli;
+
+	jun::Ray							m_CamRay;
+
 	QPoint								m_PressPnt;
 	bool								m_MouseDown[3];
 
 	glm::mat4	m_ProjectionMat, m_LookAtMat, m_ModelMat;
-	glm::vec4	m_Viewport;
+	glm::fvec4	m_Viewport;
+
 
 	///////////////////////////FUNCT//////////////////////////
 

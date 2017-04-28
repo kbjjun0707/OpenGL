@@ -100,3 +100,6 @@ void jun::Transform::getPos(float *dst) {
 	memcpy(dst, glm::value_ptr(m_Pos), sizeof(float) * 3);
 }
 
+void jun::Transform::getPos(glm::fvec3 &pos) {
+	pos = m_Pos;
+}

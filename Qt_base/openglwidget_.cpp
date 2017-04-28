@@ -2,11 +2,11 @@
 
 #include <Windows.h>
 
-#include <gl\glut.h>
+//#include <gl\glut.h>
 #include <gl\gl.h>
 #pragma comment(lib, "opengl32.lib")
-#include <gl\glu.h>
-#pragma comment(lib, "glu32.lib")
+//#include <gl\glu.h>
+//#pragma comment(lib, "glu32.lib")
 
 #include <glm\glm.hpp>
 #include <glm\gtc\matrix_transform.hpp>
@@ -34,7 +34,14 @@ void OpenglWidgetClass::initializeGL() {
 	m_CamIdx = 0;
 	memset(m_MouseDown, 0, sizeof(m_MouseDown));
 
-	m_ProjectionMat = glm::mat4(1.0);
+	m_Objs.push_back(new jun::TeapotObject());
+	m_Objs.push_back(new jun::SphereObject(2, 0, 0, 1));
+
+	m_Collis.push_back(new jun::SphereCollision(1.5));
+	m_Collis.push_back(new jun::SphereCollision(2, 0, 0, 1.05));
+
+	m_IsColli.push_back(false);
+	m_IsColli.push_back(false);
 	
 	startTimer(40);
 }
@@ -57,11 +64,23 @@ void OpenglWidgetClass::paintGL() {
 
 	m_Cams[m_CamIdx].getCamMat(m_LookAtMat);
 	glMultMatrixf(glm::value_ptr(m_ProjectionMat*m_LookAtMat*m_ModelMat));
+	
+	for (auto it : m_Objs) {
+		if (it != nullptr) {
+			glColor3f(1, 1, 1);
+			it->draw(jun::Object::DRAWMODE::SOLID);
+		}
+	}
+	for (int i = 0; i < m_Collis.size(); i++) {
+		if (m_Collis[i] != nullptr) {
+			if (m_IsColli[i] && m_MouseDown[0])
+				glColor3f(0, 0.8, 0);
+			else
+				glColor3f(0.8, 0, 0);
+			m_Collis[i]->draw();
+		}
+	}
 
-	glPushMatrix(); {
-		glutSolidTeapot(1);
-
-	}glPopMatrix();
 
 }
 
@@ -75,10 +94,21 @@ void OpenglWidgetClass::wheelEvent(QWheelEvent * e) {
 }
 
 void OpenglWidgetClass::mousePressEvent(QMouseEvent * e) {
+	glm::fvec3 campos;
 	switch (e->button()) {
 	case Qt::LeftButton:
 		m_MouseDown[0] = true;
 		m_PressPnt = e->pos();
+
+		m_Cams[m_CamIdx].getPos(campos);
+		m_CamRay = jun::Ray::calcRay(m_Viewport, m_ProjectionMat*m_LookAtMat*m_ModelMat, campos, m_PressPnt.x(), m_PressPnt.y());
+
+		for (int i = 0; i < m_Collis.size(); i++) {
+			m_IsColli[i] = jun::collision::detect(m_CamRay, *(jun::SphereCollision *)m_Collis[i]);
+		}
+
+
+
 		break;
 	default:
 		break;
